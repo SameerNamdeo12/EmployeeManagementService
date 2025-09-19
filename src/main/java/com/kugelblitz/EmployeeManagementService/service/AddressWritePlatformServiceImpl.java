@@ -5,14 +5,15 @@ import com.kugelblitz.EmployeeManagementService.domain.AddressRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddressService {
+public class AddressWritePlatformServiceImpl implements  AddressWritePlatformService {
 
     private final AddressRepository addressRepository;
 
-    public AddressService(AddressRepository addressRepository) {
+    public AddressWritePlatformServiceImpl(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
 
+    @Override
     public Address saveAddress(Address address){
         Address add=new Address();
         add.setCity(address.getCity());
@@ -20,4 +21,6 @@ public class AddressService {
         addressRepository.save(add);
         return add;
     }
+
+
 }

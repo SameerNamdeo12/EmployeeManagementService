@@ -2,7 +2,9 @@ package com.kugelblitz.EmployeeManagementService.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,18 +32,26 @@ public class Employee {
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
-    private Set<Skills> skills = new HashSet<>();
+    private List<Skills> skills = new ArrayList<>();
 
 
     public Employee() {
     }
 
-    public Employee(Long id, String name, Double salary, Department department, Address address, Set<Skills> skills) {
+    public Employee(Long id, String name, Double salary, Department department, Address address, List<Skills> skills) {
         this.id = id;
         this.name = name;
         this.salary = salary;
         this.department = department;
         this.address = address;
+        this.skills = skills;
+    }
+
+    public List<Skills> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skills> skills) {
         this.skills = skills;
     }
 
@@ -85,11 +95,5 @@ public class Employee {
         this.address = address;
     }
 
-    public Set<Skills> getSkills() {
-        return skills;
-    }
 
-    public void setSkills(Set<Skills> skills) {
-        this.skills = skills;
-    }
 }

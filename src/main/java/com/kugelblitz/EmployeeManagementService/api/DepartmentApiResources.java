@@ -1,26 +1,38 @@
 package com.kugelblitz.EmployeeManagementService.api;
 
 import com.kugelblitz.EmployeeManagementService.domain.Department;
-import com.kugelblitz.EmployeeManagementService.domain.DepartmentRepository;
-import com.kugelblitz.EmployeeManagementService.service.DepartmentService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.kugelblitz.EmployeeManagementService.service.DepartmentReadPlatformServiceImpl;
+import com.kugelblitz.EmployeeManagementService.service.DepartmentWritePlatFormServiceImpl;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class DepartmentApiResources {
 
-    private final DepartmentService departmentService;
+    private final DepartmentWritePlatFormServiceImpl departmentService;
+    private final DepartmentReadPlatformServiceImpl departmentReadPlatformService;
 
-    public DepartmentApiResources(DepartmentService departmentService) {
+    public DepartmentApiResources(DepartmentWritePlatFormServiceImpl departmentService, DepartmentReadPlatformServiceImpl departmentReadPlatformService) {
         this.departmentService = departmentService;
+        this.departmentReadPlatformService = departmentReadPlatformService;
     }
 
-    @PostMapping("saveDepartment")
+    @PostMapping("/saveDepartment")
     public Department saveDepartment(@RequestBody Department department){
        return    departmentService.saveDepartment(department);
+    }
+
+    @GetMapping("/getAllDepartment")
+    public List<Department> getAllDepartment(){
+        return departmentReadPlatformService.getAllDepartment();
+    }
+
+    @GetMapping("/getDepartmentById/{id}")
+    public Optional<Department> getDepartmentById(@PathVariable Long id){
+        return departmentReadPlatformService.getDepartmentById(id);
     }
 
 }
