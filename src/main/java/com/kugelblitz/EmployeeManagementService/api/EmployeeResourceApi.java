@@ -34,4 +34,23 @@ public class EmployeeResourceApi {
     public Optional<Employee> getEmployeeById(@PathVariable Long id){
         return employeeReadPlatformService.getEmployeeById(id);
     }
+
+    @GetMapping("/getEmployeeByDepartmentId/{id}/employees")
+    public List<Employee> getEmployeesByDepartment(@PathVariable Long id){
+        return employeeReadPlatformService.findByDepartmentId(id);
+    }
+
+    @GetMapping("/getEmployeeByName/{name}")
+    public List<Employee> getEmployeeByName(@PathVariable String name){
+        return employeeReadPlatformService.findByName(name);
+    }
+    @GetMapping("/getByNameAndDepartmentName/{name}/{departmentName}")
+     public List<Employee> findByNameIgnoreCaseOrDepartment_NameIgnoreCase(@PathVariable String name, @PathVariable String departmentName){
+        return employeeReadPlatformService.findByNameContainingIgnoreCaseOrDepartment_NameContainingIgnoreCase(name,departmentName);
+    }
+
+    @PutMapping("/updateEmployee/{id}")
+    public Optional<Employee> updateEmployee(@PathVariable Long id,@RequestBody Employee employee){
+        return employeeService.updateEmployee(id,employee);
+    }
 }

@@ -26,4 +26,21 @@ public class EmployeeReadPlatformServiceImpl implements EmployeeReadPlatformServ
         return Optional.ofNullable(employeeRepository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with id: " + id)));
     }
+
+    @Override
+    public List<Employee> findByDepartmentId(Long departmentId) {
+        return employeeRepository.findByDepartmentId(departmentId);
+    }
+
+    @Override
+    public List<Employee> findByName(String name) {
+        return employeeRepository.findByName(name);
+    }
+
+    @Override
+    public List<Employee> findByNameContainingIgnoreCaseOrDepartment_NameContainingIgnoreCase(String name, String departmentName) {
+        return employeeRepository.findByNameContainingIgnoreCaseOrDepartment_NameContainingIgnoreCase(name,departmentName);
+    }
+
+
 }

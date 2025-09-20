@@ -8,4 +8,7 @@ import java.util.Optional;
 public interface EmployeeReadPlatformService {
     List<Employee> getAllEmployee();
     Optional<Employee> getEmployeeById(Long id);
+    List<Employee> findByDepartmentId(Long departmentId);
+    List<Employee> findByName(String name);
+    List<Employee> findByNameContainingIgnoreCaseOrDepartment_NameContainingIgnoreCase(String name, String departmentName);
 }

@@ -9,7 +9,8 @@ import java.util.Set;
 
 @Entity
 @Table(name="employee")
-public class Employee {
+public class
+Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
