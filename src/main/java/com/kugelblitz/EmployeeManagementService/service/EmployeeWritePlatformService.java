@@ -10,4 +10,6 @@ public interface EmployeeWritePlatformService
 
 
     Optional<Employee> updateEmployee(Long id, Employee employee);
+
+    Employee deleteEmployee(Long id);
 }

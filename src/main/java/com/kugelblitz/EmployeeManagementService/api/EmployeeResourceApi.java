@@ -53,4 +53,8 @@ public class EmployeeResourceApi {
     public Optional<Employee> updateEmployee(@PathVariable Long id,@RequestBody Employee employee){
         return employeeService.updateEmployee(id,employee);
     }
+    @DeleteMapping("/deleteEmployee/{id}")
+    public Employee deleteEmployee(@PathVariable Long id){
+        return employeeService.deleteEmployee(id);
+    }
 }

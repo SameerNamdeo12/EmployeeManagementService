@@ -2,6 +2,7 @@ package com.kugelblitz.EmployeeManagementService.service;
 
 import com.kugelblitz.EmployeeManagementService.domain.*;
 import com.kugelblitz.EmployeeManagementService.exception.EmployeeNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class EmployeeWritePlatformServiceImpl implements EmployeeWritePlatformService{
+public class EmployeeWritePlatformServiceImpl implements EmployeeWritePlatformService {
 
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
@@ -50,15 +51,20 @@ public class EmployeeWritePlatformServiceImpl implements EmployeeWritePlatformSe
         if (optionalEmployee.isPresent()) {
             Employee existingEmployee = optionalEmployee.get();
             if (employee.getName() != null) {
-                existingEmployee.setName(employee.getName());}
+                existingEmployee.setName(employee.getName());
+            }
             if (employee.getSalary() != null) {
-                existingEmployee.setSalary(employee.getSalary());}
+                existingEmployee.setSalary(employee.getSalary());
+            }
             if (employee.getAddress() != null) {
-                existingEmployee.setAddress(employee.getAddress());}
+                existingEmployee.setAddress(employee.getAddress());
+            }
             if (employee.getDepartment() != null) {
-                existingEmployee.setDepartment(employee.getDepartment());}
+                existingEmployee.setDepartment(employee.getDepartment());
+            }
             if (employee.getSkills() != null && !employee.getSkills().isEmpty()) {
-                existingEmployee.setSkills(employee.getSkills());}
+                existingEmployee.setSkills(employee.getSkills());
+            }
             Employee updatedEmployee = employeeRepository.save(existingEmployee);
             return Optional.of(updatedEmployee);
         } else {
@@ -66,5 +72,24 @@ public class EmployeeWritePlatformServiceImpl implements EmployeeWritePlatformSe
         }
     }
 
+    @Transactional
+    @Override
+    public Employee deleteEmployee(Long id) {
+        Employee emp = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found"));
 
-}
+        
+        employeeRepository.delete(emp);
+
+
+        return new Employee(
+                emp.getId(),
+                emp.getName(),
+                emp.getSalary(),
+                emp.getDepartment(),
+                emp.getAddress(),
+                emp.getSkills()
+        );
+    }
+    }
+

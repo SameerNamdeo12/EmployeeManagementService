@@ -1,5 +1,6 @@
 package com.kugelblitz.EmployeeManagementService.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ Employee {
     private Address address;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "employee_skills",
             joinColumns = @JoinColumn(name = "employee_id"),
@@ -47,6 +49,8 @@ Employee {
         this.address = address;
         this.skills = skills;
     }
+
+
 
     public List<Skills> getSkills() {
         return skills;
